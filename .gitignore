@@ -1,0 +1,6 @@
+out/
+assets/music.wav
+assets/gev/
+assets/fonts/
+*.wav
+__pycache__/

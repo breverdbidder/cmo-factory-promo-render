@@ -1,0 +1,170 @@
+{
+"from": "2026-10-01",
+"to": "2026-10-31",
+"county": null,
+"sale_type": null,
+"days": [
+{
+"date": "2026-10-01",
+"foreclosure_count": 35,
+"tax_deed_count": 11,
+"other_count": 0,
+"total": 46
+},
+{
+"date": "2026-10-02",
+"foreclosure_count": 16,
+"tax_deed_count": 0,
+"other_count": 0,
+"total": 16
+},
+{
+"date": "2026-10-05",
+"foreclosure_count": 4,
+"tax_deed_count": 25,
+"other_count": 0,
+"total": 29
+},
+{
+"date": "2026-10-06",
+"foreclosure_count": 46,
+"tax_deed_count": 82,
+"other_count": 0,
+"total": 128
+},
+{
+"date": "2026-10-07",
+"foreclosure_count": 49,
+"tax_deed_count": 220,
+"other_count": 0,
+"total": 269
+},
+{
+"date": "2026-10-08",
+"foreclosure_count": 28,
+"tax_deed_count": 70,
+"other_count": 0,
+"total": 98
+},
+{
+"date": "2026-10-09",
+"foreclosure_count": 6,
+"tax_deed_count": 0,
+"other_count": 0,
+"total": 6
+},
+{
+"date": "2026-10-12",
+"foreclosure_count": 6,
+"tax_deed_count": 2,
+"other_count": 0,
+"total": 8
+},
+{
+"date": "2026-10-13",
+"foreclosure_count": 28,
+"tax_deed_count": 5,
+"other_count": 0,
+"total": 33
+},
+{
+"date": "2026-10-14",
+"foreclosure_count": 48,
+"tax_deed_count": 57,
+"other_count": 0,
+"total": 105
+},
+{
+"date": "2026-10-15",
+"foreclosure_count": 34,
+"tax_deed_count": 95,
+"other_count": 0,
+"total": 129
+},
+{
+"date": "2026-10-16",
+"foreclosure_count": 5,
+"tax_deed_count": 0,
+"other_count": 0,
+"total": 5
+},
+{
+"date": "2026-10-19",
+"foreclosure_count": 1,
+"tax_deed_count": 6,
+"other_count": 0,
+"total": 7
+},
+{
+"date": "2026-10-20",
+"foreclosure_count": 19,
+"tax_deed_count": 96,
+"other_count": 0,
+"total": 115
+},
+{
+"date": "2026-10-21",
+"foreclosure_count": 33,
+"tax_deed_count": 186,
+"other_count": 0,
+"total": 219
+},
+{
+"date": "2026-10-22",
+"foreclosure_count": 10,
+"tax_deed_count": 53,
+"other_count": 0,
+"total": 63
+},
+{
+"date": "2026-10-23",
+"foreclosure_count": 7,
+"tax_deed_count": 0,
+"other_count": 0,
+"total": 7
+},
+{
+"date": "2026-10-26",
+"foreclosure_count": 2,
+"tax_deed_count": 52,
+"other_count": 0,
+"total": 54
+},
+{
+"date": "2026-10-27",
+"foreclosure_count": 24,
+"tax_deed_count": 117,
+"other_count": 0,
+"total": 141
+},
+{
+"date": "2026-10-28",
+"foreclosure_count": 37,
+"tax_deed_count": 25,
+"other_count": 0,
+"total": 62
+},
+{
+"date": "2026-10-29",
+"foreclosure_count": 15,
+"tax_deed_count": 46,
+"other_count": 0,
+"total": 61
+},
+{
+"date": "2026-10-30",
+"foreclosure_count": 1,
+"tax_deed_count": 0,
+"other_count": 0,
+"total": 1
+}
+],
+"totals": {
+"foreclosure_count": 454,
+"tax_deed_count": 1148,
+"other_count": 0,
+"total": 1602,
+"days_with_auctions": 22
+},
+"fetched_at": "2026-09-23"
+}

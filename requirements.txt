@@ -1,0 +1,6 @@
+pillow>=10
+numpy
+soundfile
+qrcode
+kokoro>=0.9
+faster-whisper

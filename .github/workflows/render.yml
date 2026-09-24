@@ -1,0 +1,55 @@
+name: render-promo
+# Zero-HITL render lane for the BidDeed.AI brand promo. Produces MP4 artifacts only.
+# NO publish step (M8): publishing stays a human click in LMS /reels.
+on:
+  workflow_dispatch:
+    inputs:
+      version: { description: "v1 | v2 | both", default: "both" }
+      month_from: { description: "calendar month start", default: "2026-10-01" }
+      month_to: { description: "calendar month end", default: "2026-10-31" }
+  push:
+    branches: [main]
+    paths: ["src/**", "data/**", "scripts/**", ".github/workflows/render.yml"]
+concurrency: { group: render-promo, cancel-in-progress: true }
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: System deps
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg espeak-ng
+      - name: Python deps (CPU torch first, then Kokoro)
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q -r requirements.txt
+          pip install -q https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+      - name: Assets (Inter font, Esri deep-zoom tiles, synthesized music bed)
+        run: |
+          bash scripts/fetch_fonts.sh
+          python scripts/fetch_tiles.py
+          python scripts/make_music.py 90
+      - name: Refresh AuctionRadar figures from the live RPC (M10)
+        run: python scripts/fetch_calendar.py "${{ github.event.inputs.month_from || '2026-10-01' }}" "${{ github.event.inputs.month_to || '2026-10-31' }}"
+      - name: Canon gate (fails the run on retired or banned strings)
+        run: |
+          if grep -nE "Shapira max bid|Shapira Max Bid|\bS5\b|Property Card|before the gavel|PropertyOnion|Property Onion|close in minutes" src/beats.py; then echo "canon gate: banned term"; exit 1; fi
+          grep -q "For Everyone. Everywhere." src/beats.py
+          grep -qF 'SIGNAL$' src/beats.py
+      - name: Render
+        run: |
+          v="${{ github.event.inputs.version || 'both' }}"
+          if [ "$v" != "v2" ]; then python src/beats.py v1; fi
+          if [ "$v" != "v1" ]; then python src/beats.py v2; fi
+          for f in out/BidDeed_promo_v?.mp4; do bash scripts/whatsapp.sh "$f"; done
+      - name: QA (spec, duration, loudness, WhatsApp size)
+        run: |
+          for f in out/BidDeed_promo_*.mp4; do
+            echo "== $f"; ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate:format=duration,size -of default=nw=1 "$f"
+            ffmpeg -i "$f" -af volumedetect -f null /dev/null 2>&1 | grep -E "mean_volume|max_volume"
+          done
+          for f in out/*_whatsapp.mp4; do s=$(stat -c %s "$f"); [ "$s" -lt 16000000 ] || { echo "$f over 16 MB"; exit 1; }; done
+      - uses: actions/upload-artifact@v4
+        with: { name: promo-mp4, path: "out/*.mp4", retention-days: 30 }
